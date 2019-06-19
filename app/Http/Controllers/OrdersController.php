@@ -102,6 +102,9 @@ class OrdersController extends Controller
     public function destroy($id)
     {
         $orders = Orders::find($id);
+        foreach ($orders->positions as $position){
+            $position->delete();
+        }
         $orders->delete();
         return redirect('/orders')->with('success', 'Заявка успешно удалена!');
     }
